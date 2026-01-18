@@ -7,12 +7,28 @@
 ## 🎯 Основные возможности
 
 - **Подключение по SSHv1/v2 и Telnet** к сетевым устройствам
-- **Автоматическое определение типа оборудования** по строке приглашения (Cisco, Huawei, F5, Radware и др.)
+- **Автоматическое определение типа оборудования** по строке приглашения
 - **Выполнение многоуровневых заданий** с поддержкой условий, циклов, переменных и шаблонов
 - **Обработка ошибок** на основе стандартных выводов оборудования
 - **Сохранение выводов команд** в файлы для последующего анализа
 - **Поддержка регулярных выражений** для фильтрации и генерации подзаданий
 - **Логирование и отладка** выполнения заданий
+
+---
+
+## ✅ Поддерживаемые устройства
+
+Executor автоматически определяет тип оборудования по строке приглашения и поддерживает следующих вендоров:
+
+| Вендор | Модели/ОС | Статус |
+|--------|-----------|--------|
+| **Cisco** | IOS, IOS-XE, NX-OS, ASA, ASAv | ✅ Полная поддержка |
+| **Huawei** | VRP, NE Series | ✅ Полная поддержка |
+| **F5 Networks** | BIG-IP (TMSH, Bash) | ✅ Полная поддержка |
+| **Radware** | Alteon OS | ✅ Полная поддержка |
+| **Juniper** | JunOS | 🚧 Базовая поддержка |
+| **Cisco ASAv Hypervisor** | Hypervisor CLI (NX-OS style) | 🚧 Базовая поддержка |
+| **Другие устройства** | С поддержкой SSH/Telnet CLI | ✅ Совместимость через кастомные промпты |
 
 ---
 
@@ -28,7 +44,7 @@ go build -o executor ./cmd
 
 ### Загрузка готового бинарника
 
-Готовые сборки для Linux, Windows и macOS доступны в [Releases](https://github.com/yourusername/network-automation-executor/releases).
+Готовые сборки для Linux, Windows и macOS доступны в [Releases](https://github.com/andomize/network-automation-executor/releases).
 
 ---
 
@@ -162,16 +178,33 @@ export CLI_PASSWORD=secret
 
 ---
 
-## 🔧 Поддерживаемые устройства
+## 🧪 Примеры заданий
 
-Executor автоматически определяет тип оборудования по строке приглашения:
+В папке `demotasks/` находятся готовые примеры:
 
-- **Cisco IOS**: User Mode, Privilege Mode, Configure Mode
-- **Cisco ASA**: различные режимы
-- **Huawei**: User, System-View
-- **F5**: Bash, TMSH
-- **Radware Alteon**
-- И другие устройства с SSH/Telnet доступом
+[demo-cisco-asa-show-version](./demotasks/demo-cisco-asa-show-version.json)  
+[demo-cisco-consoler-menu](./demotasks/demo-cisco-consoler-menu.json)  
+[demo-cisco-fxos-show-remote-user](./demotasks/demo-cisco-fxos-show-remote-user.json)  
+[demo-cisco-ios-show-running-config](./demotasks/demo-cisco-ios-show-running-config.json)  
+[demo-cisco-ios-show-version](./demotasks/demo-cisco-ios-show-version.json)  
+[demo-cisco-ios-xr-show-version](./demotasks/demo-cisco-ios-xr-show-version.json)  
+[demo-cisco-nxos-aci-show-inventory](./demotasks/demo-cisco-nxos-aci-show-inventory.json)  
+[demo-cisco-nxos-show-version](./demotasks/demo-cisco-nxos-show-version.json)  
+[demo-cisco-telnet-show-version](./demotasks/demo-cisco-telnet-show-version.json)  
+[demo-conditions-version-compare](./demotasks/demo-conditions-version-compare.json)  
+[demo-f5-show-sys-version](./demotasks/demo-f5-show-sys-version.json)  
+[demo-huawei-display-version](./demotasks/demo-huawei-display-version.json)  
+[demo-huawei-system-view](./demotasks/demo-huawei-system-view.json)  
+[demo-regexp-cisco-asa-context](./demotasks/demo-regexp-cisco-asa-context.json)  
+[demo-regexp-cisco-ios-mac-address](./demotasks/demo-regexp-cisco-ios-mac-address.json)  
+[demo-show-version-cisco-or-huawei](./demotasks/demo-show-version-cisco-or-huawei.json)  
+[discovery-cisco-asa](./demotasks/discovery-cisco-asa.json)  
+[discovery-cisco-ios](./demotasks/discovery-cisco-ios.json)  
+[discovery-f5-bigip](./demotasks/discovery-f5-bigip.json)  
+[discovery-huawei-vrp](./demotasks/discovery-huawei-vrp.json)  
+[tests-cisco-ios-all-components](./demotasks/tests-cisco-ios-all-components.json)  
+
+---
 
 ---
 
@@ -213,9 +246,9 @@ Executor автоматически определяет тип оборудов
 
 ```
 network-automation-executor/
-├── cmd/                    # Точка входа
-├── internal/              # Основная логика
-│   ├── controller/        # Контроллер выполнения заданий
+├── cmd/                  # Точка входа
+├── internal/             # Основная логика
+│   ├── controller/       # Контроллер выполнения заданий
 │   ├── spawner/          # Модуль подключения к устройствам
 │   ├── domains/          # Бизнес-сущности
 │   └── services/         # Сервисный слой
@@ -223,19 +256,6 @@ network-automation-executor/
 ├── outputs/              # Выводы (создаётся при запуске)
 └── README.md
 ```
-
----
-
-## 🧪 Примеры заданий
-
-В папке `demotasks/` находятся готовые примеры:
-
-1. **basic_show_commands.json** — базовые команды для сбора информации
-2. **conditional_check.json** — пример использования условий
-3. **context_aware_collection.json** — сбор данных по контекстам на межсетевых экранах
-4. **multi_vendor_support.json** — работа с оборудованием разных вендоров
-
----
 
 ## 🔍 Отладка и логирование
 
@@ -276,10 +296,8 @@ MIT License. Подробнее в файле LICENSE.
 
 ## 📬 Контакты и поддержка
 
-- Issues: [GitHub Issues](https://github.com/yourusername/network-automation-executor/issues)
-- Документация: [Wiki](https://github.com/yourusername/network-automation-executor/wiki)
+- Issues: [GitHub Issues](https://github.com/andomize/network-automation-executor/issues)
+- Документация: [Wiki](https://github.com/andomize/network-automation-executor/wiki)
 - Примеры: [demotasks/](demotasks/)
 
 ---
-
-Это описание сфокусировано на Executor, содержит конкретные примеры использования и покрывает все основные аспекты приложения для быстрого старта.
