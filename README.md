@@ -21,14 +21,14 @@
 ### Сборка из исходников (требуется Go 1.16+)
 
 ```bash
-git clone https://github.com/yourusername/network-automation-executor.git
+git clone https://github.com/andomize/network-automation-executor.git
 cd network-automation-executor
 go build -o executor ./cmd
 ```
 
 ### Загрузка готового бинарника
 
-Готовые сборки для Linux, Windows и macOS доступны в [Releases](https://github.com/yourusername/network-automation-executor/releases).
+Готовые сборки для Linux, Windows и macOS доступны в [Releases](https://github.com/andomize/network-automation-executor/releases).
 
 ---
 
@@ -159,6 +159,30 @@ export CLI_PASSWORD=secret
   ]
 }
 ```
+
+Пример заданий можно найти в директории demotasks:
+
+[demo-cisco-asa-show-version](./demotasks/demo-cisco-asa-show-version.json)
+[demo-cisco-consoler-menu](./demotasks/demo-cisco-consoler-menu.json)
+[demo-cisco-fxos-show-remote-user](./demotasks/demo-cisco-fxos-show-remote-user.json)
+[demo-cisco-ios-show-running-config](./demotasks/demo-cisco-ios-show-running-config.json)
+[demo-cisco-ios-show-version](./demotasks/demo-cisco-ios-show-version.json)
+[demo-cisco-ios-xr-show-version](./demotasks/demo-cisco-ios-xr-show-version.json)
+[demo-cisco-nxos-aci-show-inventory](./demotasks/demo-cisco-nxos-aci-show-inventory.json)
+[demo-cisco-nxos-show-version](./demotasks/demo-cisco-nxos-show-version.json)
+[demo-cisco-telnet-show-version](./demotasks/demo-cisco-telnet-show-version.json)
+[demo-conditions-version-compare](./demotasks/demo-conditions-version-compare.json)
+[demo-f5-show-sys-version](./demotasks/demo-f5-show-sys-version.json)
+[demo-huawei-display-version](./demotasks/demo-huawei-display-version.json)
+[demo-huawei-system-view](./demotasks/demo-huawei-system-view.json)
+[demo-regexp-cisco-asa-context](./demotasks/demo-regexp-cisco-asa-context.json)
+[demo-regexp-cisco-ios-mac-address](./demotasks/demo-regexp-cisco-ios-mac-address.json)
+[demo-show-version-cisco-or-huawei](./demotasks/demo-show-version-cisco-or-huawei.json)
+[discovery-cisco-asa](./demotasks/discovery-cisco-asa.json)
+[discovery-cisco-ios](./demotasks/discovery-cisco-ios.json)
+[discovery-f5-bigip](./demotasks/discovery-f5-bigip.json)
+[discovery-huawei-vrp](./demotasks/discovery-huawei-vrp.json)
+[tests-cisco-ios-all-components](./demotasks/tests-cisco-ios-all-components.json)
 
 ---
 
