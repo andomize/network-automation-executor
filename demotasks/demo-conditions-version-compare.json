@@ -1,0 +1,29 @@
+{
+    "Tasks": [
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "terminal pager 0"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "show version",
+            "name": "names-show-version"
+        },
+        {
+            "params": {
+                "outputFile": "{{host}}-show-failover",
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "name": "names-show-version",
+                "ifOutputContains": "Cisco Adaptive Security Appliance"
+            }],
+            "command": "show failover"
+        }
+    ],
+    "host": "10.40.4.185"
+}

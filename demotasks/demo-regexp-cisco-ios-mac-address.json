@@ -1,0 +1,26 @@
+{
+    "host": "10.40.85.59",
+    "tasks": [
+        {
+            "command": "terminal length 0",
+            "params": {
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show mac address-table",
+            "params": {
+                "commandRepeatAllowed": "true",
+                "filter": "[\\s]+?[0-9]+[\\s]+(?P\u003cmacaddress\u003e[0-9abcdef]{4}.[0-9abcdef]{4}.[0-9abcdef]{4})"
+            },
+            "tasks": [
+                {
+                    "command": "show mac address-table address {{macaddress}}",
+                    "params": {
+                        "outputFile": "{{host}}-show-mac-address-{{macaddress}}"
+                    }
+                }
+            ]
+        }
+    ]
+}

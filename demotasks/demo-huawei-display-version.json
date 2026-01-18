@@ -1,0 +1,22 @@
+{
+    "Tasks": [
+        {
+            "command": "screen-length 0 temporary",
+            "params": {
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display version",
+            "params": {
+                "outputFile": "{{host}}-display-version",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        }
+    ],
+    "Settings": {
+        "timeout": "30"
+    },
+    "host": "10.40.145.137"
+}

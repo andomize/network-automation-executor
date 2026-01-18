@@ -1,0 +1,24 @@
+{
+    "host": "10.40.4.161",
+    "tasks": [
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "terminal length 0"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "scope security"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true",
+                "outputFile": "{{host}}-show-remote-user"
+            },
+            "command": "show remote-user"
+        }
+    ]
+}

@@ -1,0 +1,59 @@
+{
+    "host": "",
+    "tasks": [
+    {
+        "command": "tmsh",
+        "when": [{
+            "variable": "prompt",
+            "ifValue": "f5-bash"
+        }],
+        "params": {
+            "onErrorContinue": "true",
+            "commandRepeatAllowed": "true",
+            "promptChangeAllowed": "true"
+        }
+    },
+    {
+        "command": "modify cli preference pager disabled display-threshold 0",
+        "params": {
+            "onErrorContinue": "true",
+            "commandRepeatAllowed": "true"
+        }
+    },
+    {
+        "command": "show sys version",
+        "params": {
+            "outputFile": "{{host}}-show-sys-version",
+            "onErrorContinue": "true",
+            "commandRepeatAllowed": "true"
+        }
+    },
+    {
+        "command": "show running-config all-properties",
+        "params": {
+            "outputFile": "{{host}}-show-running-config",
+            "onErrorContinue": "true",
+            "commandRepeatAllowed": "true",
+            "timeout": "120"
+        }
+    },
+    {
+        "command": "show cm failover-status",
+        "params": {
+            "outputFile": "{{host}}-show-cm-failover-status",
+            "onErrorContinue": "true",
+            "commandRepeatAllowed": "true"
+        }
+    },
+    {
+        "command": "show sys hardware",
+        "params": {
+            "outputFile": "{{host}}-show-sys-hardware",
+            "onErrorContinue": "true",
+            "commandRepeatAllowed": "true"
+        }
+    }],
+    "settings": {
+        "timeout": "40"
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "Tasks": [
+        {
+            "command": "screen-length 0 temporary",
+            "params": {"commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "system-view",
+            "params": {"commandRepeatAllowed": "true", "promptChangeAllowed": "true"}
+        },
+        {
+            "command": "interface 10GE2/20/1",
+            "params": {"commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "quit",
+            "params": {"commandRepeatAllowed": "true"}
+        }
+    ],
+    "host": "10.40.145.137"
+}

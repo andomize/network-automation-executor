@@ -1,0 +1,54 @@
+{
+    "host": "10.40.4.177",
+    "tasks": [
+        {
+            "command": "terminal pager 0",
+            "params": {
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "changeto context system",
+            "params": {
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show context detail",
+            "params": {
+                "commandRepeatAllowed": "true",
+                "filter": "Context\\s\\\"(?P<context>[^\\s\\t]+)\\\"",
+                "filterExclude": "([Nn]ull|[Ss]ystem)"
+            },
+            "tasks": [
+                {
+                    "command": "changeto context {{context}}"
+                },
+                {
+                    "command": "{{command-show-route}}",
+                    "params": {
+                        "outputFile": "{{date}}-{{time}}-{{host}}-{{context}}-show-route"
+                    }
+                },
+                {
+                    "command": "{{command-show-arp}}",
+                    "params": {
+                        "outputFile": "{{date}}-{{time}}-{{host}}-{{context}}-show-arp"
+                    }
+                },
+                {
+                    "command": "{{command-show-access-list}}",
+                    "params": {
+                        "timeout": "420",
+                        "outputFile": "{{date}}-{{time}}-{{host}}-{{context}}-show-access-list"
+                    }
+                }
+            ]
+        }
+    ],
+    "variables": {
+        "command-show-route": "show route",
+        "command-show-arp": "show arp",
+        "command-show-access-list": "show access-list"
+    }
+}

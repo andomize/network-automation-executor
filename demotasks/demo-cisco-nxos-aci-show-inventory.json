@@ -1,0 +1,13 @@
+{
+    "Tasks": [
+        {
+            "Params": {
+                "outputFile": "{{host}}-show-inventory",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            },
+            "command": "show inventory"
+        }
+    ],
+    "host": "10.235.4.206"
+}

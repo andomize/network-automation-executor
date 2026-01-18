@@ -1,0 +1,36 @@
+{
+  "host": "10.74.190.50",
+  "tasks": [
+    {
+      "command": "tmsh",
+      "when": [{
+        "variable": "prompt",
+        "ifValue": "f5-bash"
+      }],
+      "params": {
+        "promptChangeAllowed": "true",
+        "timeout": "40"
+      }
+    },
+    {
+      "command": "modify cli preference pager disabled display-threshold 0",
+      "params": {
+        "timeout": "40"
+      }
+    },
+    {
+      "command": "show sys version",
+      "params": {
+        "outputFile": "{{host}}-show-sys-version",
+        "timeout": "120"
+      }
+    },
+    {
+      "command": "show running-config all-properties",
+      "params": {
+        "outputFile": "{{host}}-show-running-config-all-properties",
+        "timeout": "120"
+      }
+    }
+  ]
+}

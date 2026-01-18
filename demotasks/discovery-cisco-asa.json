@@ -1,0 +1,120 @@
+{
+    "host": "",
+    "tasks": [
+        {
+            "command": "terminal pager 0",
+            "params": {"onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "changeto system",
+            "name": "names-changeto-system",
+            "params": {"onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show version",
+            "params": {"outputFile": "{{host}}--show-version", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show running-config",
+            "params": {"outputFile": "{{host}}--show-running-config", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show failover",
+            "name": "names-show-failover",
+            "params": {"outputFile": "{{host}}--show-failover", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "failover exec mate show version",
+            "when": [{"name": "names-show-failover", "ifOutputContains": "Failover On"}],
+            "params": {"outputFile": "{{host}}--show-version-mate", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show resource usage",
+            "params": {"outputFile": "{{host}}--show-resource-usage", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "more system:running-config",
+            "params": {"outputFile": "{{host}}--show-running-config-secret", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show route",
+            "when": [{"name": "names-changeto-system", "ifStatus": "fail"}],
+            "params": {"outputFile": "{{host}}-admin--show-route", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show access-list | incl .*",
+            "when": [{"name": "names-changeto-system", "ifStatus": "fail"}],
+            "params": {"outputFile": "{{host}}-admin--show-access-list", "timeout": "600","onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show arp",
+            "when": [{"name": "names-changeto-system", "ifStatus": "fail"}],
+            "params": {"outputFile": "{{host}}-admin--show-arp", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show interface",
+            "when": [{"name": "names-changeto-system", "ifStatus": "fail"}],
+            "params": {"outputFile": "{{host}}-admin--show-interface", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show nat detail",
+            "when": [{"name": "names-changeto-system", "ifStatus": "fail"}],
+            "params": {"outputFile": "{{host}}-admin--show-nat-detail", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+        },
+        {
+            "command": "show context detail",
+            "when": [{"name": "names-changeto-system", "ifStatus": "success"}],
+            "params": {
+                "filter": "(?s)Context \"(?P<context>[^\"]+).*?Config URL:\\s+(?P<contextpath>\\S+)",
+                "filterExclude": "(\\.\\.\\.|startup-config)",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            },
+            "tasks": [
+                {
+                    "command": "more {{contextpath}}",
+                    "params": {"outputFile": "{{host}}-{{context}}--show-running-config-secret", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+                }
+            ]
+        },
+        {
+            "command": "show context detail",
+            "when": [{"name": "names-changeto-system", "ifStatus": "success"}],
+            "params": {
+                "filter": "(?s)Context \"(?P<context>[^\"]+)",
+                "filterExclude": "([Nn]ull|[Ss]ystem)",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            },
+            "tasks": [
+                {
+                    "command": "changeto context {{context}}"
+                },
+                {
+                    "command": "show running-config",
+                    "params": {"outputFile": "{{host}}-{{context}}--show-running-config", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+                },
+                {
+                    "command": "show route",
+                    "params": {"outputFile": "{{host}}-{{context}}--show-route", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+                },
+                {
+                    "command": "show access-list | incl .*",
+                    "params": {"outputFile": "{{host}}-{{context}}--show-access-list", "timeout": "600", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+                },
+                {
+                    "command": "show arp",
+                    "params": {"outputFile": "{{host}}-{{context}}--show-arp", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+                },
+                {
+                    "command": "show interface",
+                    "params": {"outputFile": "{{host}}-{{context}}--show-interface", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+                },
+                {
+                    "command": "show nat detail",
+                    "params": {"outputFile": "{{host}}-{{context}}--show-nat-detail", "onErrorContinue": "true", "commandRepeatAllowed": "true"}
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,47 @@
+{
+    "Tasks": [
+        {
+            "Params": {
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "variable": "vendor",
+                "ifValue": "cisco"
+            }],
+            "command": "terminal length 0"
+        },
+        {
+            "Params": {
+                "outputFile": "{{host}}-show-version",
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "variable": "vendor",
+                "ifValue": "cisco"
+            }],
+            "command": "show version"
+        },
+        {
+            "Params": {
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "variable": "vendor",
+                "ifValue": "huawei"
+            }],
+            "command": "screen-length 0 temporary"
+        },
+        {
+            "Params": {
+                "outputFile": "{{host}}-display-version",
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "variable": "vendor",
+                "ifValue": "huawei"
+            }],
+            "command": "display version"
+        }
+    ],
+    "host": "10.40.0.23"
+}

@@ -1,0 +1,14 @@
+{
+    "Tasks": [
+        {
+            "Params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "terminal length 0"
+        }
+    ],
+    "Settings": {
+        "timeout": "10"
+    },
+    "host": "10.0.0.27"
+}

@@ -1,0 +1,68 @@
+{
+    "host": "",
+    "Tasks": [
+        {
+            "command": "screen-length 0 temporary",
+            "params": {
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display version",
+            "params": {
+                "outputFile": "{{host}}-display-version",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display current-configuration",
+            "params": {
+                "outputFile": "{{host}}-display-current-configuration",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display lldp neighbor",
+            "params": {
+                "outputFile": "{{host}}-display-lldp-neighbor",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display interface transceiver",
+            "params": {
+                "outputFile": "{{host}}-display-interface-transceiver",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display mac-address",
+            "params": {
+                "outputFile": "{{host}}-display-mac-address",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display ip routing-table",
+            "params": {
+                "outputFile": "{{host}}-display-ip-routing-table",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "display arp",
+            "params": {
+                "outputFile": "{{host}}-display-arp",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "Tasks": [
+        {
+            "Params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "terminal length 0"
+        },
+        {
+            "Params": {
+                "outputFile": "{{host}}-show-version",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            },
+            "command": "show version"
+        }
+    ],
+    "Settings": {
+        "timeout": "20"
+    },
+    "host": "10.40.0.61"
+}

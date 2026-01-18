@@ -1,0 +1,134 @@
+{
+    "host": "",
+    "Tasks": [
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "terminal length 0"
+        },
+        {
+            "command": "show version",
+            "params": {
+                "outputFile": "{{host}}--show-version",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show running-config",
+            "params": {
+                "outputFile": "{{host}}--show-running-config",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show startup-config",
+            "params": {
+                "outputFile": "{{host}}--show-startup-config",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show switch",
+            "params": {
+                "outputFile": "{{host}}--show-switch",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show switch virtual",
+            "params": {
+                "outputFile": "{{host}}--show-switch-virtual",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show inventory",
+            "params": {
+                "outputFile": "{{host}}--show-inventory",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show cdp neighbors detail",
+            "params": {
+                "outputFile": "{{host}}--show-cdp",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show lldp neighbors detail",
+            "params": {
+                "outputFile": "{{host}}--show-lldp",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show mac address-table",
+            "params": {
+                "outputFile": "{{host}}--show-mac-address-table",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show ip route",
+            "params": {
+                "outputFile": "{{host}}--show-ip-route",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show ip arp",
+            "params": {
+                "outputFile": "{{host}}--show-ip-arp",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show interfaces",
+            "params": {
+                "outputFile": "{{host}}--show-interfaces",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true"
+            }
+        },
+        {
+            "command": "show ip vrf detail",
+            "params": {
+                "outputFile": "{{host}}--show-ip-vrf-detail",
+                "onErrorContinue": "true",
+                "commandRepeatAllowed": "true",
+                "filter": "(?m)^VRF\\s+(?P<vrfName>[^\\s;]+)(?:(?:;\\sd)|(?:\\s[^I]))"
+            },
+            "tasks": [
+                {
+                    "command": "show ip route vrf {{vrfName}}",
+                    "params": {
+                        "outputFile": "{{host}}-{{vrfName}}--show-ip-route",
+                        "onErrorContinue": "true",
+                        "commandRepeatAllowed": "true"
+                    }
+                },
+                {
+                    "command": "show ip arp vrf {{vrfName}}",
+                    "params": {
+                        "outputFile": "{{host}}-{{vrfName}}--show-ip-arp",
+                        "onErrorContinue": "true",
+                        "commandRepeatAllowed": "true"
+                    }
+                }
+            ]
+        }
+    ]
+}

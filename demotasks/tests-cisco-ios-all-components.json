@@ -1,0 +1,260 @@
+{
+    "host": "10.40.85.59",
+    "Tasks": [
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "{{terminalLength}}"
+        },
+        {
+            "params": {
+                "outputFile": "{{host}}-show-{{whatIWantToShow}}-#@$^@gen",
+                "commandRepeatAllowed": "true"
+            },
+            "command": "show {{whatIWantToShow}}",
+            "name": "names-show-what"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true",
+                "filter": "[\\s]+?[0-9]+[\\s]+(?P<macaddress>[0-9abcdef]{4}.[0-9abcdef]{4}.[0-9abcdef]{4})"
+            },
+            "command": "show mac address-table",
+            "name": "names-show-mac-address-table",
+            "tasks": [
+                {
+                    "params": {
+                        "outputFile": "{{host}}-show-mac-address-{{macaddress}}"
+                    },
+                    "command": "show mac address-table address {{macaddress}}",
+                    "name": "names-show-mac-address-table-task-one"
+                },
+                {
+                    "when": [
+                        {
+                            "name": "names-show-mac-address-table-task-one",
+                            "ifOutputContains": "My Heart Will Go On"
+                        }
+                    ],
+                    "command": "show mac address-table address {{macaddress}} vlan 1",
+                    "name": "names-show-mac-address-table-task-two"
+                }
+            ]
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true",
+                "filter": "Lord-Of-The-Flies-(?P<interface>[^\\s]+)-End"
+            },
+            "command": "show interfaces description",
+            "name": "names-show-interfaces-description",
+            "tasks": [{
+                "command": "show interface {{interface}}"
+            }]
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true",
+                "onErrorContinue": "true"
+            },
+            "command": "show greenpiece card",
+            "name": "names-show-greenpiece-card"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true",
+                "promptChangeAllowed": "true"
+            },
+            "when": [{
+                "variable": "configureTerminalAllowed",
+                "ifValue": "yes"
+            }],
+            "command": "configure terminal",
+            "name": "names-configure-terminal"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true",
+                "promptChangeAllowed": "true"
+            },
+            "when": [{
+                "variable": "configureTerminalAllowed",
+                "ifValue": "yes"
+            }],
+            "command": "exit"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "name": "names-show-what",
+                "ifOutputContains": "My Heart Will Go On"
+            }],
+            "command": "show version",
+            "name": "names-show-version-when"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "name": "names-show-version-when",
+                "ifOutputContains": "My Heart Will Go On"
+            }],
+            "command": "show version",
+            "name": "names-show-version-when-skipped"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "when": [{
+                "name": "names-show-what",
+                "ifOutputContains": "cisco",
+                "onMove": "names-show-cdp-goto-action"
+            }],
+            "command": "",
+            "name": "names-empty-command-with-move-action"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "show cdp",
+            "name": "names-show-cdp-skipped"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "show cdp",
+            "name": "names-show-cdp-goto-action"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true"
+            },
+            "command": "terminal length 1"
+        },
+        {
+            "params": {
+                "commandRepeatAllowed": "true",
+                "onErrorContinue": "true",
+                "timeout": "1"
+            },
+            "command": "show version",
+            "name": "names-show-version-no-prompt"
+        }
+    ],
+    "settings": {
+        "timeout": "20"
+    },
+    "variables":{
+        "configureTerminalAllowed": "yes",
+        "terminalLength": "terminal length 0",
+        "whatIWantToShow": "version"
+    },
+    "autotests": [
+        {
+
+        },
+        {
+            "name": "names-show-mac-address-table"
+        },
+        {
+            "variable": "vendor"
+        },
+        {
+            "variable": "vendor",
+            "ifValue": "cisco"
+        },
+        {
+            "variable": "vendor",
+            "ifValueNot": "huawei"
+        },
+        {
+            "variable": "prompt",
+            "ifValue": "cisco-priv"
+        },
+        {
+            "name": "names-show-what",
+            "ifOutputContains": "cisco"
+        },
+        {
+            "name": "names-show-what",
+            "ifOutputNotContains": "My Heart Will Go On"
+        },
+        {
+            "name": "names-show-what",
+            "ifStatus": "success",
+            "ifOutputContains": "WS-C2960-48TT-L"
+        },
+        {
+            "name": "names-show-what",
+            "ifOutputContainsRe": "System image file is \".*\""
+        },
+        {
+            "name": "names-show-what",
+            "ifOutputNotContainsRe": "My Heart .* Go On"
+        },
+        {
+            "name": "names-show-what",
+            "ifStatus": "success",
+            "ifOutputContainsRe": "System image file is \".*\"",
+            "ifOutputNotContainsRe": "My Heart .* Go On"
+        },
+        {
+            "name": "names-show-mac-address-table",
+            "ifStatus": "success"
+        },
+        {
+            "name": "names-show-mac-address-table-task-two",
+            "ifStatus": "skipped"
+        },
+        {
+            "name": "names-show-interfaces-description",
+            "ifStatus": "skipped"
+        },
+        {
+            "name": "names-show-greenpiece-card",
+            "ifStatus": "fail",
+            "ifOutputContains": "Invalid input"
+        },
+        {
+            "name": "names-configure-terminal",
+            "ifStatus": "success",
+            "ifOutputContains": "Enter configuration commands"
+        },
+        {
+            "name": "names-show-version-when",
+            "ifStatus": "skipped"
+        },
+        {
+            "name": "names-show-version-when-skipped",
+            "ifStatus": "skipped"
+        },
+        {
+            "name": "names-empty-command-with-move-action",
+            "ifStatus": "success"
+        },
+        {
+            "name": "names-show-cdp-skipped",
+            "ifStatus": "skipped"
+        },
+        {
+            "name": "names-show-cdp-goto-action",
+            "ifStatus": "success"
+        },
+        {
+            "name": "names-show-version-no-prompt",
+            "ifStatus": "fail"
+        },
+        {
+            "name": "names-show-cdp-goto-action",
+            "ifOutputContains": "Global CDP",
+            "OnExit": "true"
+        }
+    ]
+}
