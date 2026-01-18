@@ -30,14 +30,6 @@ Executor автоматически определяет тип оборудов
 | **Juniper** | JunOS | 🚧 Базовая поддержка |
 | **Cisco ASAv Hypervisor** | Hypervisor CLI (NX-OS style) | 🚧 Базовая поддержка |
 
-**Поддерживаемые режимы Cisco IOS:**
-- User EXEC (`device>`)
-- Privileged EXEC (`device#`)
-- Global configuration (`device(config)#`)
-- Interface configuration (`device(config-if)#`)
-- Router configuration (`device(config-router)#`)
-- Line configuration (`device(config-line)#`)
-
 ---
 
 ## 📦 Установка
